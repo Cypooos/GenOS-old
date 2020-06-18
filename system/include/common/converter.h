@@ -4,6 +4,6 @@
 #include <common/types.h>
 
 int strToHex(char* text);
-
-
+char* hexToStr(uint8 hex);
+char* binToStr(uint8 hex);
 #endif

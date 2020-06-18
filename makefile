@@ -5,7 +5,7 @@ BOOT_OBJ = out/bootloaderObj/main.o
 KER_OBJ = $(KER_SRC_C:system/src/%.c=out/kernelObj/%.o) $(KER_SRC_ASM:system/src/%.asm=out/kernelObj/%.o)
 
 CC = gcc # compiler/x86_64-elf-cross/bin/x86_64-elf-gcc # place CC compiler, temp is GCC
-CC_F = -Wall -m32 -fno-pie -Wbuiltin-declaration-mismatch
+CC_F = -Wall -m32 -fno-pie -Wbuiltin-declaration-mismatch -fno-stack-protector
 # --------------------- MAKE COMPILER
 
 $(CC): # for now, not use
@@ -49,6 +49,14 @@ clear:
 .PHONY: run
 run: out/floppy
 	sudo qemu-system-x86_64 -machine q35 -enable-kvm -smp 1 -cpu host -d cpu_reset -no-shutdown -no-reboot -serial stdio -m 2G -boot menu=on -fda out/floppy
+
+.PHONY: debug
+debug: out/floppy
+	sudo gnome-terminal -e "sudo qemu-system-x86_64 -s -S -machine q35 -enable-kvm -smp 1 -cpu host -d cpu_reset -no-shutdown -no-reboot -serial stdio -m 2G -boot menu=on -fda out/floppy"
+	echo 'target remote localhost:1234' >debug.tmp
+	#echo 'continue' >>debug.tmp
+	exec gdb -x debug.tmp
+	rm debug.tmp
 
 .PHONY: test
 test: out/floppy
