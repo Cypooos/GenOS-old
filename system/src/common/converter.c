@@ -25,13 +25,14 @@ int strToHex(char* text)
       case 'D':case 'd':end+=13;break;
       case 'E':case 'e':end+=14;break;
       case 'F':case 'f':end+=15;break;
+      default:break;
     }
   }
   return end ;
 };
 
 
-char* binToStr(uint8 hex)
+char* uint8ToBinStr(uint8 hex)
 {
     char* bin[8];
     int x;
@@ -45,11 +46,52 @@ char* binToStr(uint8 hex)
     return bin;
 }
 
-char* hexToStr(uint8 hex)
+char* uint16ToBinStr(uint16 hex)
+{
+    char* bin[16];
+    int x;
+    uint16 h = hex;
+    for(x=0;x<16;x++)
+    {
+        bin[x] = h & 0x80 ? '1' : '0';
+        h <<= 1;
+    }
+    bin[16] = '\0';
+    return bin;
+}
+
+
+char* uint8ToStr(uint8 hex)
 {
   char* foo = "XX";
   const char* alpha = "0123456789ABCDEF";
-  foo[0] = alpha[(hex & 0x0F)];
-  foo[1] = alpha[(hex &0xF0) >>4];
+  foo[1] = alpha[(hex & 0x0F)];
+  foo[0] = alpha[(hex &0xF0) >>4];
+  return foo;
+}
+
+char* uint16ToStr(uint16 hex)
+{
+  char* foo = "XXXX";
+  const char* alpha = "0123456789ABCDEF";
+  foo[3] = alpha[(hex & 0x000F)];
+  foo[2] = alpha[(hex & 0x00F0) >>4];
+  foo[1] = alpha[(hex & 0x0F00) >>8];
+  foo[0] = alpha[(hex & 0xF000) >>12];
+  return foo;
+}
+
+char* uint32ToStr(uint32 hex)
+{
+  char* foo = "XXXXXXXX";
+  const char* alpha = "0123456789ABCDEF";
+  foo[7] = alpha[(hex & 0x0000000F)];
+  foo[6] = alpha[(hex & 0x000000F0)>>4];
+  foo[5] = alpha[(hex & 0x00000F00)>>8];
+  foo[4] = alpha[(hex & 0x0000F000)>>12];
+  foo[3] = alpha[(hex & 0x000F0000)>>16];
+  foo[2] = alpha[(hex & 0x00F00000)>>20];
+  foo[1] = alpha[(hex & 0x0F000000)>>24];
+  foo[0] = alpha[(hex & 0xF0000000)>>28];
   return foo;
 }

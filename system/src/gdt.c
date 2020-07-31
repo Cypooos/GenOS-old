@@ -19,16 +19,7 @@ void gdt_set_descriptor(uint32 base, uint32 limit, uint8 acces, uint8 data, stru
 
 void gdt_print_desc(struct gdtdesc *desc)
 {
-  printf("BASE ");
-  printf_hex32(gdt_get_base(desc));
-  printf(" LIMIT ");
-  printf_hex32(gdt_get_limit(desc));
-  printf(" ACCES ");
-  printf_hex(desc->acces);
-  //printf_bin(desc->acces);
-  printf(" DATA ");
-  printf_hex((uint8)desc->data);
-  //printf_bin((uint8)desc->data);
+  printf("%H8:%h8 > acces:%h2 data:%h1\n", gdt_get_base(desc), gdt_get_limit(desc), desc->acces,desc->data);
 }
 
 uint32 gdt_get_limit(struct gdtdesc *desc)
@@ -70,6 +61,20 @@ void gdt_load_basic(int size)
 
   GDT_POINTER.base = 0x0;
   GDT_POINTER.limit = size * 8;
+  for(int i = 0; i<size-4; i++)
+  {
+    gdt_set_descriptor(0x0, 0x0, 0x0, 0x0, &gdtdes[i+4]); // Add empty segment until GDT full
+  }
 
-
+  gdt_load(gdtdes);
 };
+
+
+void gdt_print(void) {
+  struct gdtdesc gdt_desc[GDT_POINTER.limit/8];
+  memcpy((char *) gdt_desc,(char *) GDT_POINTER.base, GDT_POINTER.limit);
+  for(int i = 0; i<GDT_POINTER.limit/8; i++)
+  {
+    gdt_print_desc(&gdt_desc[i]);
+  }
+}

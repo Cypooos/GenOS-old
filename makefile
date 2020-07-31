@@ -1,3 +1,12 @@
+#
+# REMEMBER :
+# bootsector loaded in 0x07C00
+# data segment ready from 0x07C00 to 0x17C00
+# stack start at 0x8F000 and finish at 0x80000
+# OS loaded in 0x1000
+# My OS is loaded at 0x1000 and my data segment goes from 0x07C00 to 0x17C00.
+# If my OS is bigger that 0x6C00 bytes then it's getting out of the data segment
+#
 KER_SRC_C = system/src/main.c $(wildcard system/src/**/*.c) $(wildcard system/src/*.c)
 KER_SRC_ASM = $(wildcard system/src/**/*.asm) $(wildcard system/src/*.asm)
 KER_INC = system/include

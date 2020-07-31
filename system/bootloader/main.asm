@@ -1,6 +1,6 @@
 
 %define    BASE    0x100
-%define KSIZE    30
+%define    KSIZE    54
 
 [BITS 16]
 [ORG 0x0]
@@ -42,7 +42,19 @@ start:
     mov cl, 2
     mov dh, 0
     mov dl, [bootdrv]
+
+    jnc nextA
+    mov si, msgKbig
+    call afficher
+    nextA:
+
     int 0x13
+
+    jnc nextAAA
+    mov si, msgKbig
+    call afficher
+    nextAAA:
+
     pop es
 
 
@@ -82,12 +94,19 @@ next:
 
     jmp dword 0x8:0x1000
 
+; En cas de crash
+
+    mov si, msgCrash
+    call afficher
+
 end:
     jmp end
 
 
 ;--------------------------------------------------------------------
 msgDebut db "[BOOTLOADER] Loading kernel...", 13, 10, 0
+msgCrash db "[BOOTLOADER] Kernel Crash ?", 13, 10, 0
+msgKbig db "[BOOTLOADER] kernel too big ?", 13, 10, 0
 
 gdt:
 gdt_null:

@@ -3,9 +3,9 @@
 
 #include <common/types.h>
 
-static uint16* VideoMemory ;
+static uint16* FrameBuffer ;
 
-void printf(char* string);
+void printf(char* string, ...);
 void printf_hex(uint8 hex);
 void printf_hex32(uint32 hex);
 void printf_bin(uint8 hex);
@@ -19,5 +19,6 @@ void invert(uint8 x, uint8 y);
 
 void colorTest();
 
+void scrollup(uint8 n);
 
 #endif
