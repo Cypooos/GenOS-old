@@ -1,3 +1,5 @@
+#ifndef FILE__INTERRUPT__HANDLER_H_
+#define FILE__INTERRUPT__HANDLER_H_
 #include <common/types.h>
 #include <graphics/VGATUI.h>
 #include <interrupts/handler.h>
@@ -23,3 +25,4 @@ void isr_kbd_int(void)
 {
   printf("keyboard\n");
 }
+#endif

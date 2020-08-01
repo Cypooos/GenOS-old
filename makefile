@@ -34,6 +34,7 @@ out/kernelObj/%.o: system/src/%.c
 
 out/kernelObj/%.o: system/src/%.asm
 	mkdir -p $(@D)
+	-f elf -o $@
 	nasm -f elf -o $@ $^ -i system/src/;
 
 # --------------------- MAKE COMPILED
