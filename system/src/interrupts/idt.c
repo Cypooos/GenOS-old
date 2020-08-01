@@ -1,7 +1,6 @@
 #include <interrupts/idt.h>
 #include <common/types.h>
 #include <common/memMap.h>
-#include <interrupts/handler.h>
 #include <graphics/VGATUI.h>
 
 void _asm_default_int(void);

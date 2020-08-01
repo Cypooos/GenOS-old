@@ -1,12 +1,10 @@
-#ifndef FILE__INTERRUPT__HANDLER_H_
-#define FILE__INTERRUPT__HANDLER_H_
 #include <common/types.h>
 #include <graphics/VGATUI.h>
 #include <interrupts/handler.h>
 
 void isr_default_int(void)
 {
-  printf("interrupt\n");
+  printf("[$03interrupt$!] no_binded\n");
 }
 
 void isr_clock_int(void)
@@ -16,13 +14,12 @@ void isr_clock_int(void)
   tic++;
   if (tic % 100 == 0) {
     sec++;
+    printf("[$03interrupt$!] clock: %H8sec\n",sec);
     tic = 0;
-    printf("clock\n");
   }
 }
 
 void isr_kbd_int(void)
 {
-  printf("keyboard\n");
+  printf("[$03interrupt$!] key\n");
 }
-#endif
