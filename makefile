@@ -32,6 +32,10 @@ out/kernelObj/%.o: system/src/%.c
 	mkdir -p $(@D)
 	$(CC) $(CC_F) -I $(KER_INC) -c $< -o $@
 
+out/kernelObj/%.o: system/src/%.asm
+	mkdir -p $(@D)
+	nasm -f elf -o $@ $^ -i system/src/;
+
 # --------------------- MAKE COMPILED
 
 out/kernel: $(KER_OBJ)

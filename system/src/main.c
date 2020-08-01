@@ -1,6 +1,7 @@
 #include <common/types.h>
 #include <graphics/VGATUI.h>
 #include <gdt.h>
+#include <interrupts/idt.h>
 
 int main(void);
 
@@ -21,7 +22,9 @@ int main(void)
   printf("[KERNEL] Second GDT setup.\n");
 
   gdt_print();
-
+  printf("[KERNEL] Setting up interrupts.\n");
+  idt_init();
+  printf("[KERNEL] System ready !.\n");
 
 
 	while (1);
