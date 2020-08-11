@@ -1,4 +1,0 @@
-#ifndef FILE__INTERRUPT__HANDLER_H_
-#define FILE__INTERRUPT__HANDLER_H_
-
-#endif

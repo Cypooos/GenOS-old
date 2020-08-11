@@ -31,36 +31,6 @@ int strToHex(char* text)
   return end ;
 };
 
-
-char* uint8ToBinStr(uint8 hex)
-{
-    char* bin[8];
-    int x;
-    uint8 h = hex;
-    for(x=0;x<8;x++)
-    {
-        bin[x] = h & 0x80 ? '1' : '0';
-        h <<= 1;
-    }
-    bin[8] = '\0';
-    return bin;
-}
-
-char* uint16ToBinStr(uint16 hex)
-{
-    char* bin[16];
-    int x;
-    uint16 h = hex;
-    for(x=0;x<16;x++)
-    {
-        bin[x] = h & 0x80 ? '1' : '0';
-        h <<= 1;
-    }
-    bin[16] = '\0';
-    return bin;
-}
-
-
 char* uint8ToStr(uint8 hex)
 {
   char* foo = "XX";
